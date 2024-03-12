@@ -30,12 +30,14 @@ android {
     applicationVariants.all { variant ->
 
         // Apk 输出配置
-//          variant.outputs.all { output ->
-//             outputFileName = 'panda' + variant.versionName + '_' + variant.buildType.name
-//             if (variant.buildType.name == buildTypes.release.getName()) {
-//                 outputFileName += '_' + new Date().format("yyyyMMdd")
-//             }
-            outputFileName = 'panda_release.apk'
+        variant.outputs.all { output ->
+            outputFileName = rootProject.getName() + '_v' + variant.versionName + '_' + variant.buildType.name
+            if (variant.buildType.name == buildTypes.release.getName()) {
+                output.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/Release")
+                outputFileName += '_' + new Date().format("yyyyMMdd")
+            }
+            outputFileName += '.apk'
+            outputFileName = "panda_${releaseTime()}.apk"
         }
     }
 
